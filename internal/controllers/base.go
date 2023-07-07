@@ -105,5 +105,4 @@ func init() {
 	}
 	templates["index"] = temp.Must(temp.ParseFiles("templates/index.html", "templates/base.html"))
 	templates["end"] = temp.Must(temp.ParseFiles("templates/end.html", "templates/base.html"))
-
 }
