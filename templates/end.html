@@ -1,0 +1,19 @@
+{{define "head"}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Пока от Миши!</title>
+{{end}}
+
+{{define "body"}}
+<div class="welcome">
+    <figure>
+        <img class="course-img" src="https://cdn.shazoo.ru/563356_7XcVqLlVUD_screenshot_5.jpg" width="900" height="400" alt>
+    </figure>
+    <h1 class="child-title"> {{.ViewModel.Title}} </h1>
+
+    {{range $val := .ViewModel.Story}}
+    <p> {{$val}} </p>
+    {{end}}
+    <p> THE END! </p>
+</div>
+{{end}}

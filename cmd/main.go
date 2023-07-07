@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/mishankoGO/cyoa/internal/controllers"
 	"github.com/mishankoGO/cyoa/internal/storyteller"
 	"log"
@@ -15,8 +14,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Println(storyTeller["debate"].Options[0].Next)
 
 	controller := controllers.NewController(storyTeller)
 	router := controller.Route()

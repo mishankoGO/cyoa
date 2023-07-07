@@ -1,40 +1,30 @@
-<!DOCTYPE html>
-<html lang = "ru">
-
 {{define "head"}}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Привет от Миши!</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
 {{end}}
 
 {{define "body"}}
     <div class="welcome">
         <figure>
-            <img class="course-img" src="https://cdn.shazoo.ru/563356_7XcVqLlVUD_screenshot_5.jpg"  width="1100" height="400" alt>
+            <img class="course-img" src="https://cdn.shazoo.ru/563356_7XcVqLlVUD_screenshot_5.jpg" width="900" height="400" alt>
         </figure>
-        <h1 class="child-title"> {{.Title}} </h1>
+        <h1 class="child-title"> {{.ViewModel.Title}} </h1>
+
+        {{range $val := .ViewModel.Story}}
+            <p> {{$val}} </p>
+        {{end}}
     </div>
 
     <section class="choses">
-        <h2 class="choses-title">Выбери верный вариент </h2>
+        <h2 class="choses-title"> Выбери продолжение </h2>
         <div class="choses-list">
-            <article class="post">
-                <h3 class="post-title">{{.Options}}</h3>
-                <a href="#" class="special-course-readmore"> /{{.Options}} </a>
-            </article>
-            <article class="post">
-                <h3 class="post-title"> Наименование варианта 2 </h3>
-                <a href="#" class="special-course-readmore"> Ссылка </a>
-            </article>
-            <article class="post">
-                <h3 class="post-title"> Наименование варианта 3 </h3>
-                <a href="#" class="special-course-readmore"> Ссылка </a>
-            </article>
+            {{ range $val := .ViewModel.Options }}
+                <article class="post">
+                    <h3 class="post-title">{{ $val.Text }}</h3>
+                    <a href="/{{ $val.Next }}" class="special-course-readmore"> {{ $val.Next }} </a>
+                </article>
+            {{end}}
         </div>
     </section>
-
-
-    <a href="#" class="special-course-readmore"> </a>
-
 {{end}}

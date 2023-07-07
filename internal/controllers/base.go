@@ -1,15 +1,15 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/mishankoGO/cyoa/internal/storyteller"
-	"html/template"
+	temp "html/template"
 	"net/http"
+	"os"
 )
 
-var templates map[string]*template.Template
+var templates map[string]*temp.Template
 
 type Controller struct {
 	storyTeller map[string]storyteller.Arc
@@ -64,8 +64,7 @@ func (c *Controller) ArcHandler() http.Handler {
 			viewModel.Story = story.Story
 			viewModel.Options = story.Options
 			if len(viewModel.Options) == 0 {
-				renderTemplate(w, "index", "base", viewModel)
-				fmt.Fprint(w, "The end!")
+				renderTemplate(w, "end", "base", viewModel)
 				return
 			}
 			renderTemplate(w, "index", "base", viewModel)
@@ -76,22 +75,35 @@ func (c *Controller) ArcHandler() http.Handler {
 }
 
 //Render templates for the given name, template definition and data object
-func renderTemplate(w http.ResponseWriter, name string, template string, viewModel interface{}) {
+func renderTemplate(w http.ResponseWriter, name string, template string, viewModel storyteller.Arc) {
 	// Ensure the template exists in the map.
 	tmpl, ok := templates[name]
 	if !ok {
 		http.Error(w, "The template does not exist.", http.StatusInternalServerError)
 	}
-	err := tmpl.ExecuteTemplate(w, template, viewModel)
+	// add style to html
+	style, err := os.ReadFile("templates/css/style.css")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	tmplData := struct {
+		Style     temp.CSS
+		ViewModel storyteller.Arc
+	}{Style: temp.CSS(style), ViewModel: viewModel}
+	err = tmpl.ExecuteTemplate(w, template, tmplData)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 }
 
 //Compile view templates
 func init() {
 	if templates == nil {
-		templates = make(map[string]*template.Template)
+		templates = make(map[string]*temp.Template)
 	}
-	templates["index"] = template.Must(template.ParseFiles("templates/index.html", "templates/base.html"))
+	templates["index"] = temp.Must(temp.ParseFiles("templates/index.html", "templates/base.html"))
+	templates["end"] = temp.Must(temp.ParseFiles("templates/end.html", "templates/base.html"))
+
 }
