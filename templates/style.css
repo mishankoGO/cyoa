@@ -1,0 +1,54 @@
+welcome {
+    background-image: url(https://irecommend.ru/sites/default/files/imagecache/copyright1/user-images/819828/mnCcgnLbe7NX25UpXx5Fqw.jpg);
+    height: 200px;
+    background-size: cover;
+    margin: 20PX;
+    padding: 30px;
+    border-width: 1px;
+
+
+    }
+
+    figure {
+    width: 1100px;
+    padding: 20px 30px;
+    margin-left: auto;
+	margin-right: auto;
+    }
+
+    child-title {
+
+    }
+
+    .choses {
+    box-sizing: border-box;
+	width: 1100px;
+	padding: 20px 30px;
+
+	margin-left: auto;
+	margin-right: auto;
+    border: 2px solid black;
+
+    }
+
+    .choses-title {
+    font-size: 22px;
+	margin-top: 0;
+    }
+
+    .post {
+        padding: 25px;
+        background-color: #efefef;
+        margin-top: 35px;
+    }
+
+    .post:nth-child(n+2) {
+        margin-top: 35px;
+     }
+
+    .post-title {
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 17px;
+        line-height: 24px;
+    }
